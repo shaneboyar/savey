@@ -1,10 +1,12 @@
 class User < ApplicationRecord
   #Validators
-  
   has_secure_password
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
   validates_format_of :email, with: /@/
+
+  # Relationships
+  has_many :impulses
 
   # Lifecycle Callbacks
   before_save :downcase_email

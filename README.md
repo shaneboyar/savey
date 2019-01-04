@@ -6,7 +6,13 @@
 
 `rails db:migrate`
 
-`foreman run -f Procfile.dev`
+`cd client/`
+
+`yarn install`
+
+`cd ../`
+
+`foreman start -f Procfile.dev`
 
 
 **Authentication**

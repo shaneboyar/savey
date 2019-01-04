@@ -4,5 +4,6 @@ Rails.application.routes.draw do
       get 'confirm'
       post 'login' => 'user_token#create'
     end
+    resources :impulses
   end
 end

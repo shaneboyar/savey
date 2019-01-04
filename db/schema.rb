@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_04_193338) do
+ActiveRecord::Schema.define(version: 2019_01_04_204557) do
+
+  create_table "impulses", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.datetime "remind_at"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_impulses_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
