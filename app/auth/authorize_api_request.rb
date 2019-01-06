@@ -14,7 +14,7 @@ class AuthorizeApiRequest
   attr_reader :headers
 
   def get_jwt_from_cookie
-    headers['Cookie'].split("jwt=").pop()
+    headers['Cookie'].split("jwt=").pop() if headers['Cookie']&.include?("jwt")
   end
 
   def user
@@ -27,7 +27,6 @@ class AuthorizeApiRequest
   end
 
   def http_auth_header
-    get_jwt_from_cookie
     if headers['Cookie'].present?
       return get_jwt_from_cookie
     else errors.add(:token, 'Missing token')

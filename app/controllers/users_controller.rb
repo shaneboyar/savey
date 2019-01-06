@@ -26,7 +26,13 @@ class UsersController < ApplicationController
   end
 
   def login
-    authenticate params[:email], params[:password]
+    if cookies[:jwt]  
+      decoded_auth_token = JsonWebToken.decode(cookies[:jwt])
+      user = User.find(decoded_auth_token[:user_id])
+      render json: { user: {email: user.email} }, status: :ok 
+    else
+      authenticate params[:email], params[:password]
+    end
   end
   
   private
