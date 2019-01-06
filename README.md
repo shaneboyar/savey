@@ -16,4 +16,4 @@
 
 
 **Authentication**
-We are using Knock for JWT management. [Read about Knock here](https://github.com/nsarno/knock).
+<!-- We are using Knock for JWT management. [Read about Knock here](https://github.com/nsarno/knock). -->

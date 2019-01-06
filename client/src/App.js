@@ -22,24 +22,15 @@ class App extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ auth: { email, password } })
+      body: JSON.stringify({ email, password })
     })
     .then(response => console.log("response: ", response.json()))
   }
 
-  getCookie = (name) => {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length === 2) return parts.pop().split(";").shift();
-  }
-
   getImpulses = () => {
-    const jwt = this.getCookie("jwt");
     fetch("http://localhost:3000/users/3/impulses", {
       method: "GET",
-      headers: {
-        'Authorization': 'Bearer ' + jwt,
-      }
+      credentials: 'include'
     })
   }
 
