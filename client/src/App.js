@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-import LoginForm from './components/LoginForm';
 import { UserProvider } from "./utils/UserContext";
+import LoginForm from './components/LoginForm';
+import ImpulseList from './components/ImpulseList';
+
 
 class App extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class App extends Component {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             { !user.email &&  <LoginForm onSuccessfulLogin={this.authenticateUser}/> }
-            { user.email && <h1>{`${user.email} logged in!`}</h1> }         
+            { user.email && <ImpulseList /> }         
           </header>
         </div>
       </UserProvider>
