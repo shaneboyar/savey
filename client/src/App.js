@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   getImpulses = () => {
-    fetch("http://localhost:3000/users/3/impulses", {
+    fetch("http://localhost:3000/users/1/impulses", {
       method: "GET",
       credentials: 'include'
     })
