@@ -29,7 +29,7 @@ class ImpulseList extends Component {
   render() {
     return (
       this.state.impulses.map((impulse) => (
-        <h1>{impulse}</h1>
+        <h1>{impulse.name}</h1>
       ))
     )
   }
