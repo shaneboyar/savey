@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
 import { UserConsumer } from "../utils/UserContext";
 
 class ImpulseList extends Component {
@@ -31,18 +40,53 @@ class ImpulseList extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     if (!this.state.impulses) { return null; }
     return (
-      this.state.impulses.map((impulse) => (
-        <h1 key={impulse.id}>{impulse.name}</h1>
-      ))
-    )
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Impulse</TableCell>
+              <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Remind Me</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.impulses.map(impulse => {
+              return (
+                <TableRow key={impulse.id}>
+                  <TableCell component="th" scope="impulse">
+                    {impulse.name}
+                  </TableCell>
+                  <TableCell align="right">{impulse.price}</TableCell>
+                  <TableCell align="right">{moment(impulse.remind_at).fromNow()}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
   }
 }
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+});
+
+const StyledImpulseList = withStyles(styles)(ImpulseList)
 
 
 export default React.forwardRef((props, ref) => (
   <UserConsumer>
-    {user => <ImpulseList {...props} user={user} ref={ref} />}
+    {user => <StyledImpulseList {...props} user={user} ref={ref} />}
   </UserConsumer>
 ));
