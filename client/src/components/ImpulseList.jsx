@@ -6,12 +6,16 @@ class ImpulseList extends Component {
     super(props);
 
     this.state = {
-      impulses: []
+      impulses: null
     }
   }
 
-  componentDidMount() {
-    this.fetchImpulses();
+  componentDidUpdate(prevProps) {
+    if (prevProps.user !== this.props.user) {
+      if (this.props.user) {
+        this.fetchImpulses();
+      }
+    }
   }
   
   fetchImpulses = () => {
@@ -27,9 +31,10 @@ class ImpulseList extends Component {
   }
 
   render() {
+    if (!this.state.impulses) { return null; }
     return (
       this.state.impulses.map((impulse) => (
-        <h1>{impulse.name}</h1>
+        <h1 key={impulse.id}>{impulse.name}</h1>
       ))
     )
   }

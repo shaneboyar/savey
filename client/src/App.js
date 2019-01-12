@@ -41,8 +41,8 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            { !user.email &&  <LoginForm onSuccessfulLogin={this.authenticateUser}/> }
-            { user.email && <ImpulseList /> }         
+            { !user &&  <LoginForm onSuccessfulLogin={this.authenticateUser}/> }
+            { user && <ImpulseList /> }         
           </header>
         </div>
       </UserProvider>
