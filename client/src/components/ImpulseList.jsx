@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { UserConsumer } from "../utils/UserContext";
 
@@ -39,6 +41,18 @@ class ImpulseList extends Component {
     }))
   }
 
+  deleteImpulse = (id) => {
+    const userId = this.props.user.id;
+    fetch(`http://localhost:3000/users/${userId}/impulses/${id}`, {
+      method: "DELETE",
+      credentials: "include"
+    })
+    .then(response => response.json())
+    .then(data => this.setState({
+      impulses: data.remaining_impulses
+    }))
+  }
+
   render() {
     const { classes } = this.props;
     if (!this.state.impulses) { return null; }
@@ -50,6 +64,7 @@ class ImpulseList extends Component {
               <TableCell>Impulse</TableCell>
               <TableCell align="right">Price</TableCell>
               <TableCell align="right">Remind Me</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -61,6 +76,11 @@ class ImpulseList extends Component {
                   </TableCell>
                   <TableCell align="right">{impulse.price}</TableCell>
                   <TableCell align="right">{moment(impulse.remind_at).fromNow()}</TableCell>
+                  <TableCell align="right">
+                    <Button onClick={() => this.deleteImpulse(impulse.id)}>
+                      <DeleteIcon />
+                    </Button>
+                  </TableCell>
                 </TableRow>
               );
             })}

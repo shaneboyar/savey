@@ -29,6 +29,21 @@ class ImpulsesController < ApplicationController
     end
   end
 
+  def destroy
+    # /users/:user_id/impulses/:id
+    user = User.find_by(id: params[:user_id])
+    if user != current_user
+      render json: {errors: ["You cannot access another users data"]}, status: :unauthorized
+    else
+      impulse = Impulse.find(params[:id])
+      if impulse.destroy
+        render json: {destroyed_impulse: impulse, remaining_impulses: user.impulses}, status: :ok
+      else
+        render json: {errors: impulse.errors}, status: :unprocessable_entity
+      end
+    end
+  end
+
   private
   
   def impulse_params
